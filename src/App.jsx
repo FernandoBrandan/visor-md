@@ -84,7 +84,7 @@ export default function App() {
   return (
     <div className="app">
       <nav className="nav">
-        <span>Fernando Brandán </span>
+        <span>Fernando Brandán               </span>
         {sectionNames.map((section) => (
           <button
             key={section}
