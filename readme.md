@@ -21,3 +21,10 @@ en tiempo de build/dev directamente del filesystem.
 
 Copiá el archivo dentro de la carpeta de la categoría correspondiente, por
 ejemplo:
+
+
+
+
+
+npm i react react-dom react-markdown 
+npm i --save-dev vite @vitejs/plugin-react
