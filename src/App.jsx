@@ -1,27 +1,21 @@
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-// Carga automática de todos los .md dentro de content/
 const files = import.meta.glob('/content/**/*.md', {
   query: '?raw',
   import: 'default',
   eager: true,
 })
 
-// Construye, por cada sección (primera carpeta bajo content/),
-// un árbol de { folders: {...}, files: [...] } según las subcarpetas.
-// Ej: content/notas/backend/redis.md
-//   -> section = 'notas'
-//   -> folders: { backend: { files: [redis] } }
 const sections = {}
 const allDocs = []
 
 for (const path in files) {
-  const parts = path.split('/').filter(Boolean) // ['content', 'notas', 'backend', 'redis.md']
-  parts.shift() // saca 'content'
-  const section = parts.shift() // 'notas'
-  const fileName = parts.pop().replace(/\.md$/, '') // 'redis'
-  const folderPath = parts // [] o ['backend']
+  const parts = path.split('/').filter(Boolean) 
+  parts.shift() 
+  const section = parts.shift() 
+  const fileName = parts.pop().replace(/\.md$/, '') 
+  const folderPath = parts
 
   const doc = { name: fileName, path, section, content: files[path] }
   allDocs.push(doc)
@@ -37,7 +31,6 @@ for (const path in files) {
 
 const sectionNames = Object.keys(sections).sort()
 
-// Renderiza recursivamente carpetas (<details>) y archivos (botones)
 function Tree({ node, selectedPath, onSelect }) {
   const folderNames = Object.keys(node.folders).sort()
   const fileList = [...node.files].sort((a, b) => a.name.localeCompare(b.name))
@@ -91,6 +84,7 @@ export default function App() {
   return (
     <div className="app">
       <nav className="nav">
+        <span>Fernando Brandán </span>
         {sectionNames.map((section) => (
           <button
             key={section}
